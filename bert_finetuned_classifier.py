@@ -125,3 +125,34 @@ trainer = Trainer(
 )
 
 trainer.train()
+
+from sklearn.metrics import confusion_matrix, roc_auc_score, classification_report
+import numpy as np
+
+# Get predictions on test set
+predictions = trainer.predict(test_dataset)
+
+logits = predictions.predictions
+true_labels = predictions.label_ids
+
+# Predicted class
+pred_labels = np.argmax(logits, axis=1)
+
+# Probability for positive class
+probs = torch.nn.functional.softmax(torch.tensor(logits), dim=1).numpy()
+positive_probs = probs[:, 1]
+
+# Confusion matrix
+cm = confusion_matrix(true_labels, pred_labels)
+
+# ROC-AUC
+roc_auc = roc_auc_score(true_labels, positive_probs)
+
+print("\nConfusion Matrix:")
+print(cm)
+
+print("\nROC-AUC:")
+print(roc_auc)
+
+print("\nClassification Report:")
+print(classification_report(true_labels, pred_labels, digits=4))
