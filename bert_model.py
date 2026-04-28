@@ -1,16 +1,16 @@
 import pandas as pd
 
-# 读数据（注意路径）
+
 df = pd.read_csv("dataset/Truth_Seeker_Model_Dataset.csv")
 
-# 选列
+
 df = df[['tweet', 'BinaryNumTarget']]
 df = df.dropna()
 
-# 采样
+
 df = df.sample(n=10000, random_state=42)
 
-# 看一下
+
 print(df.head())
 print(df.shape)
 print(df['BinaryNumTarget'].value_counts())
