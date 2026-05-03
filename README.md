@@ -1,3 +1,3 @@
 # CS 5664 Final Project
 
-More information later ... 
+generative ai was used to assist in writing code
